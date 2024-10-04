@@ -1,0 +1,5 @@
+<h2>{{ book?.title }}</h2>
+<p>Author: {{ book?.author }}</p>
+<p>Published Year: {{ book?.publishedYear }}</p>
+<button (click)="deleteBook(book?.id)">Delete</button>
+<a [routerLink]="['/books', book?.id, 'edit']">Edit</a>

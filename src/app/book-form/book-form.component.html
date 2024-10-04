@@ -1,0 +1,18 @@
+<h2>{{ editMode ? "Edit" : "Add New" }} Book</h2>
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Title</label>
+    <input formControlName="title" />
+  </div>
+  <div>
+    <label>Author</label>
+    <input formControlName="author" />
+  </div>
+  <div>
+    <label>Published Year</label>
+    <input formControlName="publishedYear" />
+  </div>
+  <button type="submit">{{ editMode ? "Update" : "Create" }} Book</button>
+</form>
+
+<!-- <h3>Hello Saliou</h3> -->
