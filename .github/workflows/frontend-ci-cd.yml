@@ -1,3 +1,50 @@
+# name: Frontend CI/CD
+
+# # Déclencher le workflow sur chaque push dans la branche principale
+# on:
+#   push:
+#     branches:
+#       - master
+#   pull_request:
+#     branches:
+#       - master
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # Étape 1 : Cloner le dépôt GitHub
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+
+#       # Étape 2 : Installer Node.js pour Angular
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: "18"
+
+#       # Étape 3 : Installer les dépendances et construire l'application Angular
+#       - name: Install dependencies and build
+#         run: |
+#           npm install
+#           npm run build --prod
+
+#       # Étape 4 : Se connecter à Docker Hub
+#       - name: Log in to DockerHub
+#         uses: docker/login-action@v2
+#         with:
+#           username: "alaminedocker"
+#           password: "dckr_pat_1M-MHpzcbgb0QD5SSBhNQ_FxDwQ"
+
+#       # Étape 5 : Construire l'image Docker
+#       - name: Build Docker image
+#         run: docker build -t alaminedocker/angular-frontend:V001 -f src/Dockerfile .
+
+#       # Étape 6 : Pousser l'image Docker dans Docker Hub
+#       - name: Push Docker image
+#         run: docker push alaminedocker/angular-frontend:V001
+
 name: Frontend CI/CD
 
 on:
@@ -34,11 +81,12 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }} # Nom d'utilisateur sécurisé
-          password: ${{ secrets.DOCKER_PASSWORD2 }} # Mot de passe sécurisé
+          password: ${{ secrets.DOCKER_PASSWORD }} # Mot de passe sécurisé
 
       # Étape 5 : Construire l'image Docker
       - name: Build Docker image
-        run: docker build -t alaminedocker/angular-frontend:V001 . -f src/Dockerfile .
+        # run: docker build -t alaminedocker/angular-frontend:V001 . -f src/Dockerfile .
+        run: docker build -t alaminedocker/angular-frontend:V001 -f src/Dockerfile .
 
       # Étape 6 : Pusher l'image Docker dans Docker Hub
       - name: Push Docker image
