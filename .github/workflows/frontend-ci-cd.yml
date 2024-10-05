@@ -1,6 +1,5 @@
 name: Frontend CI/CD
 
-# Déclencher le workflow sur chaque push dans la branche principale
 on:
   push:
     branches:
@@ -30,17 +29,17 @@ jobs:
           npm install
           npm run build --prod
 
-      # Étape 4 : Se connecter à Docker Hub
+      # Étape 4 : Se connecter à Docker Hub en utilisant les secrets
       - name: Log in to DockerHub
         uses: docker/login-action@v2
         with:
-          username: "alaminedocker"
-          password: "dckr_pat_1M-MHpzcbgb0QD5SSBhNQ_FxDwQ"
+          username: ${{ secrets.DOCKER_USERNAME }} # Nom d'utilisateur sécurisé
+          password: ${{ secrets.DOCKER_PASSWORD2 }} # Mot de passe sécurisé
 
       # Étape 5 : Construire l'image Docker
       - name: Build Docker image
-        run: docker build -t alaminedocker/angular-frontend:V001 -f src/Dockerfile .
+        run: docker build -t alaminedocker/angular-frontend:V001 . -f src/Dockerfile .
 
-      # Étape 6 : Pousser l'image Docker dans Docker Hub
+      # Étape 6 : Pusher l'image Docker dans Docker Hub
       - name: Push Docker image
         run: docker push alaminedocker/angular-frontend:V001
